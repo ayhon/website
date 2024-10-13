@@ -1,0 +1,37 @@
+theme = "apollyhon"
+taxonomies = [{ name = "tags" }]
+
+# The URL the site will be built for
+base_url = "https://f.leal.sh"
+
+# Whether to automatically compile all Sass files in the sass directory
+compile_sass = true
+
+# Whether to build a search index to be used later on by a JavaScript library
+build_search_index = false
+
+[markdown]
+# Whether to do syntax highlighting
+# Theme can be customised by setting the `highlight_theme` variable to a theme supported by Zola
+highlight_code = true
+highlight_theme = "ayu-dark"
+
+[extra]
+# Put all your custom variables here
+theme = "auto"
+# toc = true
+menu = [
+    { name = "Posts", url = "/posts", weight = 1 },
+    { name = "Projects", url = "/projects", weight = 2 },
+    { name = "About", url = "/about", weight = 3 },
+    { name = "Tags", url = "/tags", weight = 4 },
+    # { name = "Notes", url = "/notes", weight = 5 },
+]
+socials = [
+    { name = "github", url = "https://github.com/ayhon/", icon = "github" },
+    { name = "mastodon", url = "https://qoto.org/@ayhon", icon = "mastodon" },
+    { name = "linkedin", url = "https://es.linkedin.com/in/fileal", icon = "linkedin" },
+    { name = "email", url = "mailto:contact@ayhon.eu", icon = "email" },
+]
+mathjax=true
+mathjax_dollar_inline_enable=true
