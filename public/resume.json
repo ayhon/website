@@ -43,7 +43,7 @@
       "endDate": "Jun 2024"
     },
     {
-      "institution": "École POlytechnique Fédérale de Lausanne",
+      "institution": "École Polytechnique Fédérale de Lausanne",
       "location": "Lausanne, Switzerland",
       "studyType": "Erasmus",
       "area": "Computer Science",
@@ -204,7 +204,7 @@
       ],
       "name": "Verified octagonal constraint solver",
       "description": "Computer Science Bachellor's theis. An octagonal constraint solver developeed and verified in Coq.",
-      "url": "https://f.leal.sh/projects/"
+      "url": "https://f.leal.sh/projects/octagonal-constraint-solver/"
     }
   ],
   "awards": [
