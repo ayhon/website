@@ -17,6 +17,10 @@
         <loc>https://f.leal.sh/posts/page/1/</loc>
     </url>
     <url>
+        <loc>https://f.leal.sh/posts/rocq-proof-assistant/</loc>
+        <lastmod>2025-01-11</lastmod>
+    </url>
+    <url>
         <loc>https://f.leal.sh/posts/suffix-array/</loc>
         <lastmod>2023-06-12</lastmod>
     </url>
@@ -45,6 +49,12 @@
         <loc>https://f.leal.sh/tags/haskell/</loc>
     </url>
     <url>
+        <loc>https://f.leal.sh/tags/overview/</loc>
+    </url>
+    <url>
         <loc>https://f.leal.sh/tags/suffix-array/</loc>
+    </url>
+    <url>
+        <loc>https://f.leal.sh/tags/theorem-proving/</loc>
     </url>
 </urlset>
