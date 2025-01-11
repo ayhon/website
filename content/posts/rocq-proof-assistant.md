@@ -1,8 +1,8 @@
 +++
 title = "The Rocq proof assistant"
 date = 2025-01-11
-description= ""
-slug = "/coq-proof-assistant"
+description= "Overview of Rocq as a programming language and theorem prover."
+slug = "/rocq-proof-assistant"
 draft = false
 
 [taxonomies]
