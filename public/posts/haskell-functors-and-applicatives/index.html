@@ -193,31 +193,31 @@ as an argument, and provides meaning to the function <code>fmap</code>, with sig
 <pre data-lang="haskell" style="background-color:#0f1419;color:#bfbab0;" class="language-haskell "><code class="language-haskell" data-lang="haskell"><span style="color:#ffb454;">fmap </span><span style="color:#ff7733;">::</span><span> (a </span><span style="color:#ff7733;">-&gt; </span><span>b) </span><span style="color:#ff7733;">-&gt; </span><span>f a </span><span style="color:#ff7733;">-&gt; </span><span>f b
 </span></code></pre>
 <h3 id="functor-s-intuition"><a class="zola-anchor" href="#functor-s-intuition" aria-label="Anchor link for: functor-s-intuition">Functor's intuition</a></h3>
-<p>Informally, we can understand a functor as a context around something. Any 
+<p>Informally, we can understand a functor as a context around something. Any
 functor takes a concrete type as an argument, and we say that the functor is
 adding context around that type.</p>
-<p>For example, <code>[]</code> is a functor. When we define the type &quot;list of integers&quot;, 
+<p>For example, <code>[]</code> is a functor. When we define the type "list of integers",
 what we are doing is providing the <code>[]</code> functor the argument <code>Int</code> to create
-the type <code>[Int]</code>. </p>
+the type <code>[Int]</code>.</p>
 <p><code>[Int]</code> is the original <code>Int</code> type but with an added context: that there may be
 more than one integer, or none at all.</p>
 <p>Another example of a functor, although this one may seem more pathological, is
-<code>(-&gt;) r</code>. As we've seen, in haskell we can wrap an infix function in <code>()</code> to 
+<code>(-&gt;) r</code>. As we've seen, in haskell we can wrap an infix function in <code>()</code> to
 transform it into a prefix function. Therefore <code>(-&gt;) r</code> is nothing but <code>r -&gt;</code>,
-where a second argument (a concrete type) is lacking. </p>
+where a second argument (a concrete type) is lacking.</p>
 <p>If we combine the <code>(-&gt;) r</code> functor with <code>Int</code> we get the type <code>(-&gt;) r Int</code> or
-<code>r -&gt; Int</code>, which is all functions that return an integer. In this case, the 
+<code>r -&gt; Int</code>, which is all functions that return an integer. In this case, the
 context provided around <code>Int</code> is that instead of having an integer, we have
 a function that takes one argument of type <code>r</code> and then returns and integer.</p>
-<p>Other examples which I won't explore in detail are: </p>
+<p>Other examples which I won't explore in detail are:</p>
 <ul>
 <li>
 <p><code>Maybe</code>, which adds the context of perhaps having no actual value</p>
 </li>
 <li>
-<p><code>Either String</code>, which adds the context of besides having a value, perhaps 
+<p><code>Either String</code>, which adds the context of besides having a value, perhaps
 having a <code>String</code> instead.<br />
-In this last example, a concrete type is already provided to <code>Either</code>, as it 
+In this last example, a concrete type is already provided to <code>Either</code>, as it
 takes two but a functor can only take one.<br />
 <em>(Just like</em> <code>(-&gt;) r</code><em>, which needed a type for</em> <code>r</code><em>)</em></p>
 </li>
@@ -226,17 +226,17 @@ takes two but a functor can only take one.<br />
 <p>Although the idea of functors is interesting, since creating a new functor is
 the same as creating a brand new type, functions which used to work with a
 type no longer work in it's functor equivalent.</p>
-<p>As an example, let's work with the type &quot;list of integers&quot;, in haskell <code>[Int]</code>.
+<p>As an example, let's work with the type "list of integers", in haskell <code>[Int]</code>.
 There are a lot of functions that work with integers, like the basic arithmetic
 operations, or even functions like <code>succ</code> or <code>pred</code>. These types of functions
 become unavailable when we use <code>[Int]</code> instead of <code>Int</code>. Since <code>succ</code>s signature
-is </p>
+is</p>
 <pre data-lang="haskell" style="background-color:#0f1419;color:#bfbab0;" class="language-haskell "><code class="language-haskell" data-lang="haskell"><span style="color:#ffb454;">succ </span><span style="color:#ff7733;">:: Enum </span><span>a </span><span style="color:#ff7733;">=&gt; </span><span>a </span><span style="color:#ff7733;">-&gt; </span><span>a
 </span></code></pre>
 <p>then the following doesn't make any sense</p>
 <pre data-lang="haskell" style="background-color:#0f1419;color:#bfbab0;" class="language-haskell "><code class="language-haskell" data-lang="haskell"><span>succ [</span><span style="color:#f29718;">1</span><span style="color:#bfbab0cc;">,</span><span style="color:#f29718;">2</span><span style="color:#bfbab0cc;">,</span><span style="color:#f29718;">3</span><span>]
 </span></code></pre>
-<p>although perhaps it'd be easy to find an equivalent by &quot;tweaking&quot; a little the
+<p>although perhaps it'd be easy to find an equivalent by "tweaking" a little the
 original function (That is, a function <code>succ</code> that works on lists of integers,
 applying <code>succ</code> to all elements).</p>
 <pre data-lang="haskell" style="background-color:#0f1419;color:#bfbab0;" class="language-haskell "><code class="language-haskell" data-lang="haskell"><span style="color:#ffb454;">succForLists </span><span style="color:#ff7733;">:: Enum </span><span>a </span><span style="color:#ff7733;">=&gt;</span><span> [a] </span><span style="color:#ff7733;">-&gt;</span><span> [a]
@@ -259,8 +259,8 @@ for their instance.</p>
 <h3 id="functor-laws"><a class="zola-anchor" href="#functor-laws" aria-label="Anchor link for: functor-laws">Functor laws</a></h3>
 <p>For any functor we can define how <code>fmap</code> behaves in any way. That is, besides
 following the given signature, there's no restriction as to how <code>fmap </code> behaves.
-However, it's usually advised that <code>fmap</code> is defined &quot;sensibly&quot;. </p>
-<p>We say that <code>fmap</code> has been defined &quot;sensibly&quot; if it makes its functor follow
+However, it's usually advised that <code>fmap</code> is defined "sensibly".</p>
+<p>We say that <code>fmap</code> has been defined "sensibly" if it makes its functor follow
 the functor laws:</p>
 <ol>
 <li><code>fmap id = id</code><br />
@@ -272,11 +272,11 @@ A tweaked function composition is the composition of the tweaked functions</li>
 <p>We say a functor is applicative if it also implements for its type the following
 functions:</p>
 <ul>
-<li>The <code>pure</code>, which given a value returns a contextualized version of said 
+<li>The <code>pure</code>, which given a value returns a contextualized version of said
 value<pre data-lang="haskell" style="background-color:#0f1419;color:#bfbab0;" class="language-haskell "><code class="language-haskell" data-lang="haskell"><span style="color:#ffb454;">pure </span><span style="color:#ff7733;">:: Applicative </span><span>f </span><span style="color:#ff7733;">=&gt; </span><span>a </span><span style="color:#ff7733;">-&gt; </span><span>f a
 </span></code></pre>
 </li>
-<li>The <code>&lt;*&gt;</code> operator, which applies a contextualized function to a 
+<li>The <code>&lt;*&gt;</code> operator, which applies a contextualized function to a
 contextualized value, and returns the contextualized result.<pre data-lang="haskell" style="background-color:#0f1419;color:#bfbab0;" class="language-haskell "><code class="language-haskell" data-lang="haskell"><span style="color:#ffb454;">(&lt;*&gt;)  </span><span style="color:#f29668;">:: </span><span style="color:#f29718;">Applicative</span><span> f </span><span style="color:#f29668;">=&gt;</span><span> f (a </span><span style="color:#f29668;">-&gt;</span><span> b) </span><span style="color:#f29668;">-&gt;</span><span> f a </span><span style="color:#f29668;">-&gt;</span><span> f b
 </span></code></pre>
 </li>
@@ -289,17 +289,17 @@ implemented in the following way</p>
 <pre data-lang="haskell" style="background-color:#0f1419;color:#bfbab0;" class="language-haskell "><code class="language-haskell" data-lang="haskell"><span>pure a </span><span style="color:#f29668;">=</span><span> [a]
 </span></code></pre>
 <p>which means that, for any integer, you can transform it into a list of integers
-by simply putting it in a list alone (a singleton). This function is injective 
+by simply putting it in a list alone (a singleton). This function is injective
 since integers and their singletons have a 1 to 1 correspondence. However, not
-every list can be accessed using <code>pure</code>. Lists like <code>[1,2]</code> are inaccessible. </p>
-<p>It's important to note that <code>pure</code> can not be bijective, which means that we 
+every list can be accessed using <code>pure</code>. Lists like <code>[1,2]</code> are inaccessible.</p>
+<p>It's important to note that <code>pure</code> can not be bijective, which means that we
 can make a distinction between contextualized values (The values a functor of
 that type can take), and pure contextualized values, which are those that can
 be obtained by using <code>pure</code></p>
 <h3 id="understanding-the-operator"><a class="zola-anchor" href="#understanding-the-operator" aria-label="Anchor link for: understanding-the-operator">Understanding the <code>&lt;*&gt;</code> operator</a></h3>
-<p>With regular functors, we've managed to salvage functions which take one 
+<p>With regular functors, we've managed to salvage functions which take one
 argument and use them on the contextualized values. However, when trying to use
-any type of function, we encounter a problem. </p>
+any type of function, we encounter a problem.</p>
 <p>Because in haskell any function is a curried function, a binary function is
 actually a function which takes one argument and returns a function that takes
 the other argument and then returns the final value.</p>
@@ -307,14 +307,14 @@ the other argument and then returns the final value.</p>
 <code>fmap</code> can only transform a function that works on value into a function that
 works on the contextualized values, if we provide it a binary function, it will
 return a function that returns a contextualized function. And we don't have a
-way of applying a contextualized function to a contextualized value, which 
+way of applying a contextualized function to a contextualized value, which
 means this second function is useless to us. We can't give it any values.</p>
 <p>The <code>&lt;*&gt;</code> operator is our way to fix this. There's usually another tweak we
 can make to a function so that it makes sense applying its contextualized
-version to a contextualized value. This other tweak is defined with the <code>&lt;*&gt;</code> 
+version to a contextualized value. This other tweak is defined with the <code>&lt;*&gt;</code>
 operator</p>
 <p>Let's see it with an example. The <code>(+)</code> function takes two integers and adds
-them together. Let's try to apply it over two lists of numbers, of type 
+them together. Let's try to apply it over two lists of numbers, of type
 <code>[Int]</code>.</p>
 <p>The first thing we do is tweak the <code>(+)</code> function so that it works over lists
 using <code>fmap</code></p>
@@ -341,13 +341,13 @@ numbers. As an example:</p>
 </span></code></pre>
 <h3 id="the-ziplist-type"><a class="zola-anchor" href="#the-ziplist-type" aria-label="Anchor link for: the-ziplist-type">The <code>ZipList</code> type</a></h3>
 <p>Perhaps this isn't what one would expect at first. If you want to add together
-the elements of two lists, like <code>[1,2,3] &lt;specialAdd&gt; [6,5,4]</code> one would 
+the elements of two lists, like <code>[1,2,3] &lt;specialAdd&gt; [6,5,4]</code> one would
 expect the output to be <code>[7, 7, 7]</code> since both lists have the same length, but
 we instead get <code>[7,6,5,8,7,6,9,8,7]</code>.</p>
-<p>This implementation makes sense when we realize that lists provided may not 
+<p>This implementation makes sense when we realize that lists provided may not
 have the same length. We could make it so, if two lists of different lengths
 are provided, we truncate the longest one to fit the size of the first one, and
-this implementation is included in haskell with the type <code>ZipList</code> in the 
+this implementation is included in haskell with the type <code>ZipList</code> in the
 module <code>Control.Applicative</code>, named this way because the process described
 earlier is basically what the function <code>zipWith</code> does.</p>
 <p>Using <code>ZipList</code>, the previous operation would look like this</p>
@@ -361,10 +361,10 @@ earlier is basically what the function <code>zipWith</code> does.</p>
 </span><span>    </span><span style="color:#f29718;">ZipList</span><span> fs </span><span style="color:#f29668;">&lt;</span><span>*</span><span style="color:#f29668;">&gt; </span><span style="color:#f29718;">ZipList</span><span> xs </span><span style="color:#f29668;">= </span><span style="color:#f29718;">ZipList</span><span> (zipWith </span><span style="color:#ffb454;">($)</span><span> fs xs)
 </span></code></pre>
 <p>The reason we define <code>pure</code> this way is because that's how it should be defined
-in order for it to be &quot;sensible&quot;. What do we mean by sensible? That's where the
+in order for it to be "sensible". What do we mean by sensible? That's where the
 applicative laws come in.</p>
 <h3 id="applicative-laws"><a class="zola-anchor" href="#applicative-laws" aria-label="Anchor link for: applicative-laws">Applicative laws</a></h3>
-<p>In the same way we had functor laws to define what were sensible 
+<p>In the same way we had functor laws to define what were sensible
 implementations of <code>fmap</code>, for applicatives we have the applicative laws, which
 define what are sensible implementations for <code>pure</code> and <code>&lt;*&gt;</code>.</p>
 <p>These are 4 equalities that must hold</p>
@@ -372,18 +372,18 @@ define what are sensible implementations for <code>pure</code> and <code>&lt;*&g
 <li><code>pure id &lt;*&gt; v = v</code><br />
 Applying a pure contextualized identity is applying the identity.</li>
 <li><code>pure (.) &lt;*&gt; u &lt;*&gt; v &lt;*&gt; w = u &lt;*&gt; (v &lt;*&gt; w)</code><br />
-Applying a pure contextualized composition over two functors and a value is 
+Applying a pure contextualized composition over two functors and a value is
 the same as applying the first contextualized function after the second.</li>
 <li><code>pure f &lt;*&gt; pure x = pure (f x)</code><br />
-Applying a pure contextualized function over a pure contextualized value 
+Applying a pure contextualized function over a pure contextualized value
 is the pure contextualized function applied over the value.</li>
 <li><code>u &lt;*&gt; pure y = pure ($ y) &lt;*&gt; u</code><br />
 Applying a contextualized function over a pure contextualized value is the
-same as applying the pure contextualized function &quot;apply value&quot; over the 
+same as applying the pure contextualized function "apply value" over the
 contextualized function.</li>
 </ol>
 <h3 id="the-operator"><a class="zola-anchor" href="#the-operator" aria-label="Anchor link for: the-operator">The <code>&lt;$&gt;</code> operator</a></h3>
-<p>To recap, if we want to apply a binary function, like <code>(+)</code>, over two 
+<p>To recap, if we want to apply a binary function, like <code>(+)</code>, over two
 contextualized values, like <code>Just 10</code> and <code>Nothing</code> of type <code>Maybe Int</code>, we
 would first tweak <code>(+)</code> to work on the <code>Maybe</code> functor with <code>fmap</code>, apply it
 over the first value and the using <code>&lt;*&gt;</code> provide the second value.</p>
@@ -395,7 +395,7 @@ value is so common, haskell provides an operator that directly does that, the
 <pre data-lang="haskell" style="background-color:#0f1419;color:#bfbab0;" class="language-haskell "><code class="language-haskell" data-lang="haskell"><span style="color:#ffb454;">(&lt;$&gt;) </span><span style="color:#ff7733;">:: Functor </span><span>f </span><span style="color:#ff7733;">=&gt;</span><span> (a </span><span style="color:#ff7733;">-&gt; </span><span>b) </span><span style="color:#ff7733;">-&gt; </span><span>f a </span><span style="color:#ff7733;">-&gt; </span><span>f b
 </span><span style="color:#f29668;">&lt;$&gt; = `fmap`
 </span></code></pre>
-<p>This way, the previous expression becomes </p>
+<p>This way, the previous expression becomes</p>
 <pre data-lang="haskell" style="background-color:#0f1419;color:#bfbab0;" class="language-haskell "><code class="language-haskell" data-lang="haskell"><span style="color:#ffb454;">(+) </span><span style="color:#f29668;">&lt;$&gt; </span><span style="color:#f29718;">Just 10 </span><span style="color:#f29668;">&lt;</span><span>*</span><span style="color:#f29668;">&gt; </span><span style="color:#f29718;">Nothing
 </span></code></pre>
 <p>which is arguably much more readable.</p>
