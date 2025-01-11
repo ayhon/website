@@ -35,7 +35,7 @@ socials = [
     { name = "github", url = "https://github.com/ayhon/", icon = "github" },
     { name = "mastodon", url = "https://qoto.org/@ayhon", icon = "mastodon" },
     { name = "linkedin", url = "https://es.linkedin.com/in/fileal", icon = "linkedin" },
-    { name = "email", url = "mailto:contact@ayhon.eu", icon = "email" },
+    { name = "email", url = "mailto:f@leal.sh", icon = "email" },
 ]
 mathjax=true
 mathjax_dollar_inline_enable=true
