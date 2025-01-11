@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="en">
+<html class="dark light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    
+
+    
+    
+    
+    <title>
+         The Rocq proof assistant
+        
+    </title>
+
+        
+            <meta property="og:title" content="The Rocq proof assistant" />
+        
+     
+
+     
+         
+             <meta property="og:description" content="Overview of Rocq as a programming language and theorem prover." />
+         
+     
+
+     
+         
+             <meta name="description" content="Overview of Rocq as a programming language and theorem prover." />
+         
+    
+
+    
+    
+
+    
+    
+        <link href=https://f.leal.sh/fonts.css rel="stylesheet" />
+    
+
+    
+    
+
+    
+    
+
+    
+    
+    
+    
+    
+
+    
+        
+            <script>
+            MathJax = {
+              tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']]
+              }
+            };
+            </script>
+        
+        <script type="text/javascript" id="MathJax-script" async
+          src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+        </script>
+    
+
+    
+    <link rel="alternate" type="application/atom+xml" title="" href="https://f.leal.sh/atom.xml">
+
+
+    
+    
+        <link rel="stylesheet" type="text/css" href=https://f.leal.sh/theme/light.css />
+        <link rel="stylesheet" type="text/css" href="https://f.leal.sh/theme/dark.css" media="(prefers-color-scheme: dark)" />
+    
+
+    <!-- Set the correct theme in the script -->
+    <script src=https://f.leal.sh/js/themetoggle.js></script>
+    
+        <script>
+            if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                setTheme("dark");
+            } else {
+                setTheme("light");
+            }
+        </script>
+    
+
+    <link rel="stylesheet" type="text/css" media="screen" href=https://f.leal.sh/main.css />
+
+    
+</head>
+
+
+<body>
+    <div class="content">
+        <header>
+    <div class="main">
+        <a href=https:&#x2F;&#x2F;f.leal.sh></a>
+
+        <div class="socials">
+            
+            <a rel="me" href="https:&#x2F;&#x2F;github.com&#x2F;ayhon&#x2F;" class="social">
+                <img alt=github src=https://f.leal.sh/social_icons/github.svg>
+            </a>
+            
+            <a rel="me" href="https:&#x2F;&#x2F;qoto.org&#x2F;@ayhon" class="social">
+                <img alt=mastodon src=https://f.leal.sh/social_icons/mastodon.svg>
+            </a>
+            
+            <a rel="me" href="https:&#x2F;&#x2F;es.linkedin.com&#x2F;in&#x2F;fileal" class="social">
+                <img alt=linkedin src=https://f.leal.sh/social_icons/linkedin.svg>
+            </a>
+            
+            <a rel="me" href="mailto:contact@ayhon.eu" class="social">
+                <img alt=email src=https://f.leal.sh/social_icons/email.svg>
+            </a>
+            
+        </div>
+    </div>
+
+    <nav>
+        
+        <a href=https://f.leal.sh/posts style="margin-left: 0.5em">Posts</a>
+        
+        <a href=https://f.leal.sh/projects style="margin-left: 0.5em">Projects</a>
+        
+        <a href=https://f.leal.sh/about style="margin-left: 0.5em">About</a>
+        
+        <a href=https://f.leal.sh/tags style="margin-left: 0.5em">Tags</a>
+        
+
+        
+    </nav>
+</header>
+
+
+        
+        
+    
+<main>
+    <article>
+        <div class="title">
+            
+            
+    <div class="page-header">
+        The Rocq proof assistant<span class="primary-color" style="font-size: 1.6em">.</span>
+    </div>
+
+
+                <div class="meta">
+                    
+                        Posted on <time>2025-01-11</time>
+                    
+
+                    
+
+                    
+
+                    
+                    
+                            <span class="tags-label"> :: Tags:</span>
+                            <span class="tags">
+                                    <a href="https://f.leal.sh/tags/theorem-proving/" class="post-tag">theorem-proving</a>, 
+                                
+                                    <a href="https://f.leal.sh/tags/overview/" class="post-tag">overview</a>
+                                
+                            </span>
+                    
+
+                    
+                    
+
+                    
+
+                </div>
+        </div>
+
+        
+
+        
+        
+
+        <section class="body">
+            <p>This whole blogpost is a chapter I submitted as part of my bachelors'
+thesis in Computer Science. For those interested, the full thesis
+can be found in <a href="https://docta.ucm.es/rest/api/core/bitstreams/0d70f687-7572-4265-9659-918b99e701d1/content">the following link</a>.
+Only some minor changes have been made from the original text, mainly
+to translate the $\LaTeX$ source from the report into the Markdown
+used to generate these pages.</p>
+<p>I wrote the following text after having used Rocq for a couple of
+months, so I wouldn't count myself as an expert in the topic. However,
+I was particularly proud at the time on how I managed to explain all
+the concepts that I was juggling with on my head, and after recently
+redescovering my thesis' report I decided this would be an interesting
+chapter to host in my blog. I've wanted to post more things in this
+website for a while, but the kinds of content I want to include would
+require more of my time than I'm willing to give right now. In the
+meantime, I believe this to be a nice addition.</p>
+<h1 id="the-rocq-proof-assistant"><a class="zola-anchor" href="#the-rocq-proof-assistant" aria-label="Anchor link for: the-rocq-proof-assistant">The Rocq Proof Assistant</a></h1>
+<p>From <a href="https://coq.inria.fr/">Rocq's website</a>:</p>
+<blockquote>
+<p>Rocq is a formal proof management system. It provides a formal language to write mathematical
+definitions, executable algorithms and theorems together with an environment for semi-interactive
+development of machine-checked proofs. Typical applications include the certification of properties
+of programming languages, the formalization of mathematics, and teaching.</p>
+</blockquote>
+<p>Of the mentioned typical applications in this project we are most interested in
+the first, the ``certification of properties of programming languages''. In
+particular we are interested in verifying that certain algorithms satisfy certain properties
+that ensure they are implemented correctly and fulfill their purpose. The Rocq proof assistant
+has been used extensively to verify a multitude of projects.</p>
+<ul>
+<li><code>CompCert</code>, a certified compiler for the majority of the C language.</li>
+<li><code>Iris</code>, a higher-order concurrent separation logic framework, used for reasoning about safety of concurrent programs, as the logic in logical relations, to reason about type-systems, data-abstraction, .... It has been used in other projects such as RustBelt.</li>
+<li><code>Fiat-Crypto</code>, a tool for cryptographic primitive code generation.</li>
+<li><code>ConCert</code>, a framework for smart contract verification in Rocq.</li>
+<li><code>Cosette</code>, an automated prover for checking equivalences of SQL queries.</li>
+</ul>
+<p>In essence, it is a tool for writing and verifying mathematical proofs and developing certified software.
+To provide this functions, Rocq provides a way of creating programs, functioning as a programming
+languages, and a way to develop proofs, functioning as a proof assistant.</p>
+<h2 id="rocq-as-a-functional-programming-language"><a class="zola-anchor" href="#rocq-as-a-functional-programming-language" aria-label="Anchor link for: rocq-as-a-functional-programming-language">Rocq as a functional programming language</a></h2>
+<p>Although, at its core, Rocq is a typed functional programming language, we interact with this language
+in a peculiar way. When you write a program in Rocq you can think of it as having a conversation with the
+language, where each statement is a question and its result is what Rocq gives you as an answer. It is not
+that different from writing your programs in a REPL in other languages. However, Rocq  allows you to be
+very creative with your questions. For example, the following command will prompt Rocq to show the internal
+representation of its grammar. Pay attention to the final dot. All Rocq commands must end in a dot.</p>
+<pre data-lang="coq" style="background-color:#0f1419;color:#bfbab0;" class="language-coq "><code class="language-coq" data-lang="coq"><span style="color:#ff7733;">Print </span><span>Grammar constr.
+</span></code></pre>
+<pre style="background-color:#0f1419;color:#bfbab0;"><code><span>Entry constr is
+</span><span>[ LEFTA
+</span><span>  [ &quot;@&quot;; global; univ_annot
+</span><span>  | term LEVEL &quot;8&quot; ] ]
+</span><span>and lconstr is
+</span><span>  ...
+</span></code></pre>
+<p>At first this might come off as odd. Why would one need such a command? The answer is that, while in most
+programming languages we regard the grammar as something static, Rocq allows you to alter the way it parses
+your definitions. Therefore, it is useful to know what Rocq currently thinks the grammar looks like.</p>
+<p>However, these commands are not to what we refer to when we talk about Rocq being a programming language.
+The programming language inside Rocq can be accessed through some special commands, such as
+<code>Inductive</code> or <code>Definition</code>.</p>
+<p><code>Inductive</code> allows us to define data types. They work similarly to enumerations in other
+languages. Consider, for example, the following definition of the booleans as a type containing two
+constructors, <code>false</code>.</p>
+<pre data-lang="coq" style="background-color:#0f1419;color:#bfbab0;" class="language-coq "><code class="language-coq" data-lang="coq"><span style="color:#ff7733;">Inductive </span><span style="color:#ffb454;">bool </span><span style="color:#f29668;">:= 
+</span><span>  </span><span style="color:#f29668;">| </span><span style="color:#ffb454;">true
+</span><span>  </span><span style="color:#f29668;">| </span><span style="color:#ffb454;">false</span><span>.
+</span></code></pre>
+<p>An inductive type defined in this way can have any number of constructors, including zero!</p>
+<pre data-lang="coq" style="background-color:#0f1419;color:#bfbab0;" class="language-coq "><code class="language-coq" data-lang="coq"><span style="color:#ff7733;">Inductive </span><span style="color:#ffb454;">void </span><span style="color:#f29668;">:= </span><span>.
+</span></code></pre>
+<p>You can check for the type of a value with the <code>Check</code> command.</p>
+<pre data-lang="coq" style="background-color:#0f1419;color:#bfbab0;" class="language-coq "><code class="language-coq" data-lang="coq"><span style="color:#ff7733;">Check </span><span style="font-style:italic;color:#f29668;">false</span><span>. 
+</span></code></pre>
+<pre data-lang="coq" style="background-color:#0f1419;color:#bfbab0;" class="language-coq "><code class="language-coq" data-lang="coq"><span style="color:#ff3333;">false
+</span><span>     : bool
+</span></code></pre>
+<p>While the <code>Definition</code>
+allows us to define values. This works in a similar way to general programming languages. The
+following statement assigns to the variable named <code>my_true</code> the value
+<code>true</code>.</p>
+<pre data-lang="coq" style="background-color:#0f1419;color:#bfbab0;" class="language-coq "><code class="language-coq" data-lang="coq"><span style="color:#ff7733;">Definition </span><span style="color:#ffb454;">my_true </span><span style="color:#f29668;">:= </span><span style="font-style:italic;color:#f29668;">true</span><span>.
+</span></code></pre>
+<p>A function can be defined through the <code>Definition</code> command by specifying its arguments on
+the left side of the <code>:=</code> symbol. The parenthesis around the arguments are only needed if you
+want to specify the argument's type, or if the type itself could not be inferred by Rocq itself. For
+example we define the function <code>always_true</code> which takes a boolean argument
+<code>true</code>.</p>
+<pre data-lang="coq" style="background-color:#0f1419;color:#bfbab0;" class="language-coq "><code class="language-coq" data-lang="coq"><span style="color:#ff7733;">Definition </span><span style="color:#ffb454;">always_true </span><span>(</span><span style="color:#f29718;">b</span><span style="color:#bfbab0cc;">: </span><span style="color:#f07178;">bool</span><span>) </span><span style="color:#f29668;">:= </span><span style="font-style:italic;color:#f29668;">true</span><span>.
+</span></code></pre>
+<p>To express the return type of a function we also use the <code>:type</code> syntax, putting it
+right before the <code>:=</code> symbol. The following line defines the identity function for
+values of type <code>bool</code>.</p>
+<pre data-lang="coq" style="background-color:#0f1419;color:#bfbab0;" class="language-coq "><code class="language-coq" data-lang="coq"><span style="color:#ff7733;">Definition </span><span style="color:#ffb454;">bool_identity </span><span>(</span><span style="color:#f29718;">b</span><span style="color:#bfbab0cc;">: </span><span style="color:#f07178;">bool</span><span>) </span><span style="color:#bfbab0cc;">: </span><span style="color:#f07178;">bool </span><span style="color:#f29668;">:= </span><span>b.
+</span></code></pre>
+<p>To the right side of the <code>:=</code> symbol we can put any Rocq expression. Technically, the
+language of expressions in Rocq is called Gallina
+% https://coq.inria.fr/doc/v8.9/refman/language/gallina-specification-language.html#:~:text=This%20chapter%20describes%20Gallina%2C%20the,%2C%20functions%2C%20predicates%20and%20sets.
+but people usually refer to it as just Rocq informally. Calling a function is an expression, and the syntax
+used is the same as when defining one. To illustrate this we introduce the <code>Compute</code>
+command, which prompts Rocq to evaluate an expression and show its result.</p>
+<pre data-lang="coq" style="background-color:#0f1419;color:#bfbab0;" class="language-coq "><code class="language-coq" data-lang="coq"><span style="color:#ff7733;">Compute </span><span>bool_identity </span><span style="font-style:italic;color:#f29668;">true</span><span>.
+</span></code></pre>
+<pre data-lang="coq" style="background-color:#0f1419;color:#bfbab0;" class="language-coq "><code class="language-coq" data-lang="coq"><span>= </span><span style="color:#ff3333;">true
+</span><span>     : bool
+</span></code></pre>
+<p>A useful construct of Gallina is that of the
+<code>match _ with ... end</code> which lets us act differently depending on the way values were
+constructed. This can be used, for example, to define the boolean <code>notb</code> function,
+which exchanges <code>false</code> and vice versa.</p>
+<pre data-lang="coq" style="background-color:#0f1419;color:#bfbab0;" class="language-coq "><code class="language-coq" data-lang="coq"><span style="color:#ff7733;">Definition </span><span style="color:#ffb454;">notb </span><span style="color:#f29718;">b </span><span style="color:#f29668;">:= </span><span style="color:#ff7733;">match </span><span>b </span><span style="color:#ff7733;">with 
+</span><span>                     </span><span style="color:#f29668;">| </span><span style="font-style:italic;color:#f29668;">true </span><span style="color:#f29668;">=&gt; </span><span style="font-style:italic;color:#f29668;">false
+</span><span>                     </span><span style="color:#f29668;">| </span><span style="font-style:italic;color:#f29668;">false </span><span style="color:#f29668;">=&gt; </span><span style="font-style:italic;color:#f29668;">true
+</span><span>                     </span><span style="color:#ff7733;">end</span><span>.
+</span></code></pre>
+<p>Observe that in this case we could omit the parenthesis in the argument definition, since Rocq was
+able to infer the type of <code>b</code> from how it was used in the expression.</p>
+<p>We can also create functions which return anonymous functions by using the <code>fun</code>
+keyword. The arguments are specified with the same syntax as before, with the main difference being
+that now the <code>=&gt;</code> symbol is used to separate the arguments from the body, and not
+<code>-&gt;</code> symbol to separate the
+argument type from the return type. Consider the following function which implements a curried
+version of the boolean and function.</p>
+<pre data-lang="coq" style="background-color:#0f1419;color:#bfbab0;" class="language-coq "><code class="language-coq" data-lang="coq"><span style="color:#ff7733;">Definition </span><span style="color:#ffb454;">andb </span><span>(</span><span style="color:#f29718;">b</span><span style="color:#bfbab0cc;">: </span><span style="color:#f07178;">bool</span><span>) </span><span style="color:#bfbab0cc;">: </span><span style="color:#f07178;">bool </span><span style="color:#f29668;">-&gt; </span><span style="color:#f07178;">bool </span><span style="color:#f29668;">:=
+</span><span>  </span><span style="color:#ff7733;">fun </span><span style="color:#f29718;">b&#39; </span><span style="color:#f29668;">=&gt; </span><span style="color:#ff7733;">match </span><span>b </span><span style="color:#ff7733;">with 
+</span><span>            </span><span style="color:#f29668;">| </span><span style="font-style:italic;color:#f29668;">true </span><span style="color:#f29668;">=&gt; </span><span>b&#39;
+</span><span>            </span><span style="color:#f29668;">| </span><span style="font-style:italic;color:#f29668;">false </span><span style="color:#f29668;">=&gt; </span><span style="font-style:italic;color:#f29668;">false
+</span><span>            </span><span style="color:#ff7733;">end</span><span>.
+</span></code></pre>
+<p>As with most functional programming languages, functions in Rocq can be curried, which means
+that they can be partially applied, providing only one argument and returning a function which takes
+the others. Therefore this type of definition is, in fact, unnecessary. We could have achieved the
+same result by having the function take both arguments <code>b'</code>
+directly.</p>
+<p>When defining a new type with <code>Inductive</code>, the constructors themselves can also take
+arguments. This works as the main way of storing values in Rocq, similar to how records work in other
+programming languages. For example, this is how we would define a named pair of two boolean values.</p>
+<pre data-lang="coq" style="background-color:#0f1419;color:#bfbab0;" class="language-coq "><code class="language-coq" data-lang="coq"><span style="color:#ff7733;">Inductive </span><span style="color:#ffb454;">two_bools </span><span style="color:#f29668;">:= </span><span style="color:#ffb454;">my_bools </span><span>(b b&#39;</span><span style="color:#bfbab0cc;">: </span><span style="color:#f07178;">bool</span><span>).
+</span></code></pre>
+<p>Notice that <code>b'</code> is a valid identifier in Rocq. While this is not unique to Rocq (OCaml
+also has this feature), it is still novel enough to be worth pointing it out. Also notice that since
+both <code>b'</code> had the same type we could specify it under the
+same set of parenthesis.</p>
+<p><code>Inductive</code> definitions are also allowed to be recursive, as long as Rocq is able to
+prove that this recursion comes to an end. In general this means that at least one constructor is not
+recursive. For example, here is the definition of Peano natural numbers in Rocq.</p>
+<pre data-lang="coq" style="background-color:#0f1419;color:#bfbab0;" class="language-coq "><code class="language-coq" data-lang="coq"><span style="color:#ff7733;">Inductive </span><span style="color:#ffb454;">nat </span><span style="color:#f29668;">:=
+</span><span>  </span><span style="color:#f29668;">| </span><span style="color:#ffb454;">O 
+</span><span>  </span><span style="color:#f29668;">| </span><span style="color:#ffb454;">S </span><span>(n</span><span style="color:#bfbab0cc;">: </span><span style="color:#f07178;">nat</span><span>).
+</span></code></pre>
+<p>You can also define recursive functions, but not through the <code>Definition</code> command. We
+use the <code>match</code> over a type
+with arguments in its constructors, it can be useful to use an identifier instead of a value in order
+to bind the value to the identifier. Observe how this is used in the following definition of addition
+for Peano's natural numbers.</p>
+<pre data-lang="coq" style="background-color:#0f1419;color:#bfbab0;" class="language-coq "><code class="language-coq" data-lang="coq"><span style="color:#ff7733;">Fixpoint </span><span style="color:#ffb454;">add </span><span>(</span><span style="color:#f29718;">n m</span><span style="color:#bfbab0cc;">: </span><span style="color:#f07178;">nat</span><span>) </span><span style="color:#f29668;">:=
+</span><span>  </span><span style="color:#ff7733;">match </span><span>n </span><span style="color:#ff7733;">with
+</span><span>  </span><span style="color:#f29668;">| </span><span style="font-style:italic;color:#f29668;">O </span><span style="color:#f29668;">=&gt; </span><span>m
+</span><span>  </span><span style="color:#f29668;">| </span><span style="font-style:italic;color:#f29668;">S </span><span>n&#39; </span><span style="color:#f29668;">=&gt; </span><span>add n&#39; (</span><span style="font-style:italic;color:#f29668;">S </span><span>m)
+</span><span>  </span><span style="color:#ff7733;">end</span><span>.
+</span></code></pre>
+<p>If the argument itself will not be used, you can also use the special
+identifier <code>_</code> to discard it, like it is used in the following example
+of the function <code>is_zero</code>.</p>
+<pre data-lang="coq" style="background-color:#0f1419;color:#bfbab0;" class="language-coq "><code class="language-coq" data-lang="coq"><span style="color:#ff7733;">Fixpoint </span><span style="color:#ffb454;">is_zero</span><span>(</span><span style="color:#f29718;">n</span><span style="color:#bfbab0cc;">: </span><span style="color:#f07178;">nat</span><span>)</span><span style="color:#bfbab0cc;">: </span><span style="color:#f07178;">bool </span><span style="color:#f29668;">:=
+</span><span>  </span><span style="color:#ff7733;">match </span><span>n </span><span style="color:#ff7733;">with
+</span><span>  </span><span style="color:#f29668;">| </span><span style="font-style:italic;color:#f29668;">O </span><span style="color:#f29668;">=&gt; </span><span style="font-style:italic;color:#f29668;">true
+</span><span>  </span><span style="color:#f29668;">| </span><span style="color:#ff7733;">_ </span><span style="color:#f29668;">=&gt; </span><span style="font-style:italic;color:#f29668;">false
+</span><span>  </span><span style="color:#ff7733;">end</span><span>.
+</span></code></pre>
+<p><code>Fixpoint</code> functions in Rocq also have the catch that Rocq must be able to ensure that
+they are terminating. Therefore, a function that loops infinitely cannot be defined in Rocq.</p>
+<pre data-lang="coq" style="background-color:#0f1419;color:#bfbab0;" class="language-coq "><code class="language-coq" data-lang="coq"><span style="color:#ff7733;">Fixpoint </span><span style="color:#ffb454;">loop </span><span>(</span><span style="color:#f29718;">n</span><span style="color:#bfbab0cc;">: </span><span style="color:#f07178;">nat</span><span>)</span><span style="color:#bfbab0cc;">: </span><span style="color:#f07178;">nat </span><span style="color:#f29668;">:= </span><span>loop n.
+</span></code></pre>
+<pre data-lang="coq" style="background-color:#0f1419;color:#bfbab0;" class="language-coq "><code class="language-coq" data-lang="coq"><span style="color:#ff3333;">Recursive</span><span> definition of loop is ill-formed.
+</span><span style="color:#ff3333;">In</span><span> environment
+</span><span>loop : nat -&gt; nat
+</span><span>n : nat
+</span><span>Recursive call to loop has principal argument equal to 
+</span><span>&quot;n&quot; instead of a subterm of &quot;n&quot;.
+</span><span style="color:#ff3333;">Recursive</span><span> definition is: &quot;fun n : nat =&gt; loop n&quot;.
+</span></code></pre>
+<p>These are the basic building blocks of Rocq's programming language. There are not any built-in data
+types commonly found in other languages like booleans or numbers. These are instead defined as part of
+the standard library, in <code>Coq.Init.Nat</code>. Common
+expressions such as the <code>if</code> expression are actually just syntactic sugar over the
+<code>let ... in</code> expression,
+which lets you bind an expression to a variable and use it in another expression.</p>
+<pre data-lang="coq" style="background-color:#0f1419;color:#bfbab0;" class="language-coq "><code class="language-coq" data-lang="coq"><span style="color:#ff3333;">let</span><span> x := 10 in x + 1
+</span></code></pre>
+<p>In Rocq, this statement desugars to a <code>match</code> expression.</p>
+<pre data-lang="coq" style="background-color:#0f1419;color:#bfbab0;" class="language-coq "><code class="language-coq" data-lang="coq"><span style="color:#ff3333;">match</span><span> 10 with
+</span><span>| x =&gt; x + 1
+</span><span>end
+</span></code></pre>
+<p>To let Rocq know that we want to use the definitions for <code>bool</code> and
+<code>nat</code> defined in its standard library, we would use the following commands.</p>
+<pre data-lang="coq" style="background-color:#0f1419;color:#bfbab0;" class="language-coq "><code class="language-coq" data-lang="coq"><span style="color:#ff3333;">From</span><span> Coq </span><span style="color:#ff7733;">Require Import </span><span>Bool.Bool.
+</span><span style="color:#ff3333;">From</span><span> Coq </span><span style="color:#ff7733;">Require Import </span><span>Init.Nat.
+</span></code></pre>
+<p>Besides including the definitions mentioned before, the standard library also defines some
+common functions, such as addition, and provide some syntactic sugar to work with them. For example,
+the two following statements are equivalent since they make use of the same function.</p>
+<pre data-lang="coq" style="background-color:#0f1419;color:#bfbab0;" class="language-coq "><code class="language-coq" data-lang="coq"><span style="color:#ff7733;">Compute </span><span>add </span><span style="color:#f29718;">1 2</span><span>.
+</span></code></pre>
+<pre data-lang="coq" style="background-color:#0f1419;color:#bfbab0;" class="language-coq "><code class="language-coq" data-lang="coq"><span>= 3
+</span><span>     : </span><span style="color:#ff3333;">nat
+</span></code></pre>
+<pre data-lang="coq" style="background-color:#0f1419;color:#bfbab0;" class="language-coq "><code class="language-coq" data-lang="coq"><span style="color:#ff7733;">Compute </span><span style="color:#f29718;">1 </span><span style="color:#f29668;">+ </span><span style="color:#f29718;">2</span><span>.
+</span></code></pre>
+<pre data-lang="coq" style="background-color:#0f1419;color:#bfbab0;" class="language-coq "><code class="language-coq" data-lang="coq"><span>= 3
+</span><span>     : </span><span style="color:#ff3333;">nat
+</span></code></pre>
+<p>To show the syntactic sugar that Rocq is currently aware of you can use the following command.</p>
+<pre data-lang="coq" style="background-color:#0f1419;color:#bfbab0;" class="language-coq "><code class="language-coq" data-lang="coq"><span style="color:#ff7733;">Print </span><span>Visibility.
+</span></code></pre>
+<pre data-lang="coq" style="background-color:#0f1419;color:#bfbab0;" class="language-coq "><code class="language-coq" data-lang="coq"><span>...
+</span><span style="color:#ff3333;">Visible</span><span> in scope nat_scope
+</span><span>&quot;x &gt;= y&quot; := (ge x y)
+</span><span>&quot;x &gt; y&quot; := (gt x y)
+</span><span>&quot;x &lt;= y &lt;= z&quot; := (and (le x y) (le y z))
+</span><span>&quot;x &lt;= y &lt; z&quot; := (and (le x y) (lt y z))
+</span><span>&quot;n &lt;= m&quot; := (le n m)
+</span><span>&quot;x &lt; y &lt;= z&quot; := (and (lt x y) (le y z))
+</span><span>&quot;x &lt; y &lt; z&quot; := (and (lt x y) (lt y z))
+</span><span>&quot;x &lt; y&quot; := (lt x y)
+</span><span>&quot;x - y&quot; := (Nat.sub x y)
+</span><span>&quot;x + y&quot; := (Nat.add x y)
+</span><span>&quot;x * y&quot; := (Nat.mul x y)
+</span></code></pre>
+<p>One thing to point out from the output of this command is the fact that boolean equality of two numbers,
+recognized as the function <code>==</code> or
+<code>=?</code> symbol. This is to highlight that this operator returns a boolean
+value, since unlike other programming languages, booleans are not built-in into the language. Furthermore,
+the <code>=</code> operator is reserved for some other purpose in Rocq, which we will explore
+in the next section.</p>
+<p>Rocq also allows overloading a symbol to different operations depending on the types of its
+operands. This can ease the readability of some proofs and theorems, however it can also
+sometimes lead to ambiguity. To prevent this, Rocq offers the possibility to define this
+syntactic sugar under a scope, and later specify under which scope a given piece of syntax
+should be interpreted by. This is done by enclosing the syntax in parenthesis and following
+it with the <code>%</code> symbol and the name of the scope, which usually tends to
+correspond to a type.</p>
+<p>This is useful, for example, when juggling with multiple
+definitions of numbers. Besides <code>nat</code>, Rocq also defines the data-types
+<code>Z</code> for naturals and integers. The differences
+between <code>N</code> lie in how they are defined.
+<code>nat</code> implements the Peano natural numbers, encoded as zero and its
+successors. <code>N</code> on the other hand follows the computer representation
+of numbers, using a sequence of zeroes and ones. Fortunately, we can use the <code>+</code>
+symbol to express addition for both data-types.</p>
+<pre data-lang="coq" style="background-color:#0f1419;color:#bfbab0;" class="language-coq "><code class="language-coq" data-lang="coq"><span style="color:#ff7733;">Check </span><span>(</span><span style="color:#f29718;">1 </span><span style="color:#f29668;">+ </span><span style="color:#f29718;">1</span><span>)</span><span style="color:#f29668;">%</span><span style="color:#f07178;">nat</span><span>. 
+</span></code></pre>
+<pre data-lang="coq" style="background-color:#0f1419;color:#bfbab0;" class="language-coq "><code class="language-coq" data-lang="coq"><span>(1 + 1)%</span><span style="color:#ff3333;">N
+</span><span>     : N
+</span></code></pre>
+<pre data-lang="coq" style="background-color:#0f1419;color:#bfbab0;" class="language-coq "><code class="language-coq" data-lang="coq"><span style="color:#ff7733;">Check </span><span>(</span><span style="color:#f29718;">1 </span><span style="color:#f29668;">+ </span><span style="color:#f29718;">1</span><span>)</span><span style="color:#f29668;">%</span><span>N. 
+</span></code></pre>
+<pre data-lang="coq" style="background-color:#0f1419;color:#bfbab0;" class="language-coq "><code class="language-coq" data-lang="coq"><span>(1 + 1)%</span><span style="color:#ff3333;">nat
+</span><span>     : nat
+</span></code></pre>
+<h2 id="rocq-as-a-theorem-prover"><a class="zola-anchor" href="#rocq-as-a-theorem-prover" aria-label="Anchor link for: rocq-as-a-theorem-prover">Rocq as a theorem prover</a></h2>
+<p>Besides the commands that allow you to interface with the programming language, Rocq also offers commands
+with which you can define theorems and prove them. In fact, the commands <code>Theorem</code>,
+<code>Example</code>, the main way in which you interact with the
+theorem proving side of Rocq, are all equivalent with one another. The different names are simply for the
+developers to classify the properties they are trying to prove as they see fit.</p>
+<p>Consider the following proposition. Pay attention to how we now use the <code>:</code> symbol to separate the
+proposition with its name instead of the <code>:=</code> symbol as we did in the programming language.</p>
+<pre data-lang="coq" style="background-color:#0f1419;color:#bfbab0;" class="language-coq "><code class="language-coq" data-lang="coq"><span style="color:#ff7733;">Example </span><span style="color:#ffb454;">true_is_true </span><span style="color:#bfbab0cc;">: </span><span style="font-style:italic;color:#f29668;">true </span><span style="color:#f29668;">= </span><span style="font-style:italic;color:#f29668;">true</span><span>.
+</span></code></pre>
+<p>The proposition appears after the first <code>:</code> symbol, and it follows a similar syntax
+to expressions. % Warning 1 of Cury-Howard correspondance
+After this command is executed Rocq registers the proposition you want to prove and awaits for you
+to provide a proof of this proposition. We do this by entering proof mode using the
+<code>Proof</code> command.</p>
+<p>In proof mode, Rocq shows you the proposition you have to prove as a goal. In graphical interfaces this
+is usually the proposition which appears under the horizontal line.</p>
+<pre data-lang="coq" style="background-color:#0f1419;color:#bfbab0;" class="language-coq "><code class="language-coq" data-lang="coq"><span>1 </span><span style="color:#ff3333;">subgoal
+</span><span>
+</span><span>
+</span><span>========================= (1 / 1)
+</span><span>
+</span><span>true = true
+</span></code></pre>
+<p>The space above the horizontal line is reserved for local definitions, which are definitions that can
+only be accessed from within the proof. Most of the time these definitions refer to our hypothesis. There
+are no hypothesis at the moment, which is why the only text above the horizontal line is the goal counter.
+The goal is the current proposition we need to prove. There can be more than one goal to prove in a proof,
+and we say that the proof has concluded when there are no goals left.</p>
+<p>Inside proof mode, a new set of commands a syntax are available to us to construct the proof. These are
+called <em>tactics</em>. For example, to prove the goal <code>true = true</code> we wouldd use the
+<code>reflexivity</code> tactic, which concludes an equality if both sides are syntactically the same. This is
+exactly the case for this goal, which has <code>true</code> on both sides.</p>
+<p>Once the goal has been proven you can exit proof mode using the <code>Qed</code> command. Therefore,
+a theorem and its proof would look like this</p>
+<pre data-lang="coq" style="background-color:#0f1419;color:#bfbab0;" class="language-coq "><code class="language-coq" data-lang="coq"><span style="color:#ff7733;">Example </span><span style="color:#ffb454;">true_is_true </span><span style="color:#bfbab0cc;">: </span><span style="font-style:italic;color:#f29668;">true </span><span style="color:#f29668;">= </span><span style="font-style:italic;color:#f29668;">true</span><span>.
+</span><span style="color:#ff7733;">Proof</span><span style="color:#bfbab0cc;">.
+</span><span>  </span><span style="color:#f07178;">reflexivity</span><span>.
+</span><span style="color:#ff7733;">Qed</span><span>.
+</span></code></pre>
+<p>This example is not terribly exciting. It would be more interesting if we could prove a property
+for a greater amount of values, not just one. To achieve this in Rocq we use the
+<code>forall</code> keyword, which has a similar syntax to that of function application.</p>
+<pre data-lang="coq" style="background-color:#0f1419;color:#bfbab0;" class="language-coq "><code class="language-coq" data-lang="coq"><span style="color:#ff7733;">Example </span><span style="color:#ffb454;">bool_refl&#39; </span><span style="color:#bfbab0cc;">: </span><span style="color:#ff7733;">forall </span><span style="color:#f29718;">b </span><span style="color:#bfbab0cc;">: </span><span style="color:#f07178;">bool</span><span style="color:#bfbab0cc;">, </span><span>b </span><span style="color:#f29668;">= </span><span>b.
+</span></code></pre>
+<p>If we enter proof mode, the goal is now <code>forall b : bool, b = b</code>. We cannot conclude this
+proof with <code>reflexivity</code>, since the goal is not an equality, it has a quantifier
+beforehand. What we would like to say is that the proof is the same regardless of our choice of
+<code>b</code> and
+proving the theorem for that <code>intros</code>
+tactic.</p>
+<pre data-lang="coq" style="background-color:#0f1419;color:#bfbab0;" class="language-coq "><code class="language-coq" data-lang="coq"><span style="color:#ff7733;">Proof</span><span style="color:#bfbab0cc;">.
+</span><span>  </span><span style="color:#f07178;">intros </span><span>b.
+</span><span>  </span><span style="color:#f07178;">reflexivity</span><span>.
+</span><span style="color:#ff7733;">Qed</span><span>.
+</span></code></pre>
+<p>Proving something for all elements of a type is pretty powerful, but usually we are only interested in
+proving things for elements which satisfy certain properties. To do this we make use of implication,
+written with the <code>-&gt;</code> symbol.</p>
+<pre data-lang="coq" style="background-color:#0f1419;color:#bfbab0;" class="language-coq "><code class="language-coq" data-lang="coq"><span style="color:#ff7733;">Example </span><span style="color:#ffb454;">bool_eq_sym&#39; </span><span style="color:#bfbab0cc;">: </span><span style="color:#ff7733;">forall </span><span style="color:#f29718;">b b&#39; </span><span style="color:#bfbab0cc;">: </span><span style="color:#f07178;">bool</span><span style="color:#bfbab0cc;">, </span><span>b </span><span style="color:#f29668;">= </span><span>b&#39; </span><span style="color:#f29668;">-&gt; </span><span>b&#39; </span><span style="color:#f29668;">= </span><span>b.
+</span></code></pre>
+<p>To start the proof we introduce the variables <code>b'</code> with
+<code>intros</code> as before. This leaves us in the following state.</p>
+<pre data-lang="coq" style="background-color:#0f1419;color:#bfbab0;" class="language-coq "><code class="language-coq" data-lang="coq"><span>1 </span><span style="color:#ff3333;">subgoal
+</span><span>
+</span><span>b, b&#39; : bool
+</span><span>
+</span><span>========================= (1 / 1)
+</span><span>
+</span><span>b = b&#39; -&gt; b&#39; = b
+</span></code></pre>
+<p>To proceed, we use <code>eq_b_b'</code>
+to reflect its meaning</p>
+<pre data-lang="coq" style="background-color:#0f1419;color:#bfbab0;" class="language-coq "><code class="language-coq" data-lang="coq"><span>1 </span><span style="color:#ff3333;">subgoal
+</span><span>
+</span><span>b, b&#39; : bool
+</span><span>eq_b_b&#39; : b = b&#39;
+</span><span>
+</span><span>========================= (1 / 1)
+</span><span>
+</span><span>b&#39; = b
+</span></code></pre>
+<p>What we have introduced this time under the name <code>eq_b_b'</code> is not a value, but the
+evidence that the proposition <code>eq_b_b'</code> is true. We can later use that evidence with
+other tactics, like <code>rewrite</code>, which takes an equality and rewrites all appearances of
+the expression on the left side of the <code>=</code> symbol with that on the right side of the
+equality.</p>
+<pre data-lang="coq" style="background-color:#0f1419;color:#bfbab0;" class="language-coq "><code class="language-coq" data-lang="coq"><span>1 </span><span style="color:#ff3333;">subgoal
+</span><span>
+</span><span>b, b&#39; : bool
+</span><span>eq_b_b&#39; : b = b&#39;
+</span><span>
+</span><span>========================= (1 / 1)
+</span><span>
+</span><span>b&#39; = b&#39;
+</span></code></pre>
+<p>At this point we can conclude the proof with the <code>reflexivity</code> tactic.</p>
+<pre data-lang="coq" style="background-color:#0f1419;color:#bfbab0;" class="language-coq "><code class="language-coq" data-lang="coq"><span style="color:#ff7733;">Example </span><span style="color:#ffb454;">bool_eq_sym&#39; </span><span style="color:#bfbab0cc;">: </span><span style="color:#ff7733;">forall </span><span style="color:#f29718;">b b&#39; </span><span style="color:#bfbab0cc;">: </span><span style="color:#f07178;">bool</span><span style="color:#bfbab0cc;">, </span><span>b </span><span style="color:#f29668;">= </span><span>b&#39; </span><span style="color:#f29668;">-&gt; </span><span>b&#39; </span><span style="color:#f29668;">= </span><span>b.
+</span><span style="color:#ff7733;">Proof</span><span style="color:#bfbab0cc;">.
+</span><span>  </span><span style="color:#f07178;">intros </span><span>b b&#39;.
+</span><span>  </span><span style="color:#f07178;">intros </span><span>eq_b_b&#39;.
+</span><span>  </span><span style="color:#f07178;">rewrite </span><span>eq_b_b&#39;.
+</span><span>  </span><span style="color:#f07178;">reflexivity</span><span>.
+</span><span style="color:#ff7733;">Qed</span><span>.
+</span></code></pre>
+<p>The dual of the universal quantifier <code>forall</code> is the existential quantifier
+<code>exists</code>, which states that there is a value of one type which satisfies the specified
+proposition.</p>
+<pre data-lang="coq" style="background-color:#0f1419;color:#bfbab0;" class="language-coq "><code class="language-coq" data-lang="coq"><span style="color:#ff7733;">Example </span><span style="color:#ffb454;">has_zero </span><span style="color:#bfbab0cc;">: </span><span style="color:#ff7733;">exists </span><span style="color:#f29718;">n</span><span style="color:#bfbab0cc;">: </span><span style="color:#f07178;">nat</span><span style="color:#bfbab0cc;">, </span><span>n </span><span style="color:#f29668;">= </span><span style="color:#f29718;">0</span><span>.
+</span></code></pre>
+<p>When proving a goal with an <code>exists</code>, Rocq expects you to provide a value with the
+equally-named <code>exists</code> tactic, and show that the property holds for the given value.</p>
+<pre data-lang="coq" style="background-color:#0f1419;color:#bfbab0;" class="language-coq "><code class="language-coq" data-lang="coq"><span style="color:#ff7733;">Proof</span><span style="color:#bfbab0cc;">.
+</span><span>  </span><span style="font-style:italic;color:#5c6773;">(* Goal is [exists n : nat, n = 0.] *)
+</span><span>  </span><span style="color:#f07178;">exists </span><span style="color:#f29718;">0</span><span>. 
+</span><span>  </span><span style="font-style:italic;color:#5c6773;">(* Goal is [0 = 0.] *)
+</span><span>  </span><span style="color:#f07178;">reflexivity</span><span>.
+</span><span style="color:#ff7733;">Qed</span><span>.
+</span></code></pre>
+<!-- % However, in mathematics this is not the only approach to prove these kinds of theorems. It is also common -->
+<!-- % to use _reductio ad absurdum_, by attempting to prove that the proposition is false and failing to -->
+<!-- % do so. However, this type of reasoning is not allowed in Coq, since it is not constructive. That is, if -->
+<!-- % Coq allowed these types of arguments we could prove the existence of elements which followed one --> 
+<!-- % property, but be unable --> 
+<p>In these proofs so far, we have treated all elements of a type the same way, not making a distinction on
+how they were constructed. However, for some proofs it is necessary to make this distinction.</p>
+<pre data-lang="coq" style="background-color:#0f1419;color:#bfbab0;" class="language-coq "><code class="language-coq" data-lang="coq"><span style="color:#ff7733;">Theorem </span><span style="color:#ffb454;">negb_involutive </span><span style="color:#bfbab0cc;">: </span><span style="color:#ff7733;">forall </span><span style="color:#f29718;">b </span><span style="color:#bfbab0cc;">: </span><span style="color:#f07178;">bool</span><span style="color:#bfbab0cc;">, </span><span>negb (negb b) </span><span style="color:#f29668;">= </span><span>b.
+</span></code></pre>
+<p>To prove this statement, we need to show that it holds true for both <code>true</code> and
+<code>destruct</code> tactic, which takes a term as
+an argument and creates as many subgoals as constructors it has. In each of these subgoals, the term
+has been replaced by one of its constructors. Therefore, <code>destruct</code> allows us to prove
+that a proposition is true depending on how the term was constructed.</p>
+<p>In this case, the first subgoal asks us to prove <code>negb (negb true) = true</code>.
+We can use the <code>simpl</code> tactic to ask Rocq to simplify the goal, for example by executing
+the <code>negb</code> function through its definition. This leaves us with
+<code>reflexivity</code> tactic. The
+same argument holds for the second subgoal</p>
+<pre data-lang="coq" style="background-color:#0f1419;color:#bfbab0;" class="language-coq "><code class="language-coq" data-lang="coq"><span style="color:#ff7733;">Proof</span><span style="color:#bfbab0cc;">.
+</span><span>  </span><span style="color:#f07178;">intros </span><span>b. </span><span style="color:#f07178;">destruct </span><span>b.
+</span><span>  </span><span style="color:#59c2ff;">- </span><span style="color:#f07178;">simpl</span><span>.
+</span><span>    </span><span style="color:#f07178;">reflexivity</span><span>.
+</span><span>  </span><span style="color:#59c2ff;">- </span><span style="color:#f07178;">simpl</span><span>.
+</span><span>    </span><span style="color:#f07178;">reflexivity</span><span>. 
+</span><span style="color:#ff7733;">Qed</span><span>.
+</span></code></pre>
+<p>As a matter of fact, the <code>true = true</code> goal is something we already proved in the
+<code>true_is_true</code> example before. We could reuse this proof
+by using the <code>apply</code> tactic instead, which receives the name of a proposition previously
+defined and attempts to fit it into the current goal, by trying to infer the values of quantified
+variables. For example, we could have also used the
+<code>bool_eq_refl'</code> theorem, and Rocq would have set the value of
+<code>true</code>.</p>
+<p>The <code>apply</code> tactic also works if the proposition to apply is part of an implication.
+If we have a lemma <code>Q</code>, we can use
+<code>P</code>, since if we are able to
+prove <code>h</code>. An example
+of such a situation would be using the previously defined
+<code>bool_eq_sym'</code>.</p>
+<pre data-lang="coq" style="background-color:#0f1419;color:#bfbab0;" class="language-coq "><code class="language-coq" data-lang="coq"><span style="color:#ff7733;">Lemma  </span><span style="color:#ffb454;">h&#39;</span><span style="color:#bfbab0cc;">: </span><span style="color:#ff7733;">forall </span><span style="color:#f29718;">b</span><span style="color:#bfbab0cc;">: </span><span style="color:#f07178;">bool</span><span style="color:#bfbab0cc;">, </span><span>b </span><span style="color:#f29668;">= </span><span style="font-style:italic;color:#f29668;">true </span><span style="color:#f29668;">-&gt; </span><span style="font-style:italic;color:#f29668;">true </span><span style="color:#f29668;">= </span><span>b.
+</span><span style="color:#ff7733;">Proof</span><span style="color:#bfbab0cc;">.
+</span><span>  </span><span style="color:#f07178;">intros </span><span>b b_true.
+</span><span>  </span><span style="font-style:italic;color:#5c6773;">(* Goal is [true = b] *)
+</span><span>  </span><span style="color:#f07178;">apply </span><span>bool_eq_sym&#39;.
+</span><span>  </span><span style="font-style:italic;color:#5c6773;">(* Goal is [b = true] *)
+</span><span>  </span><span style="color:#f07178;">apply </span><span>b_true.
+</span><span style="color:#ff7733;">Qed</span><span>.
+</span></code></pre>
+<p>Notice how we conclude this example by applying a proof which lives as a local definition. The apply
+tactic is not restricted to the theorems available to Rocq, but also to those arising from the context
+of the proof.</p>
+<p>Negation in Rocq is not a first-class feature, but it is implemented in terms of implication and
+<code>False</code> proposition represents a proposition which cannot be
+proven, its dual is the <code>True</code> proposition, for which there is one trivial proof called
+<code>I</code>.</p>
+<p>Then, the negation of a proposition <code>~ P</code>, is defined as
+<code>P</code> allows
+you to derive a proof of <code>P</code>
+in the first place, since there is no proof for <code>P</code>.</p>
+<p>The same way we have <code>reflexivity</code> to end a proof if the goal is an equality and both
+sides of the equality are constructed with the same constructors, the <code>discriminate</code>
+tactic allows us to end a proof if given one hypothesis of an equality which can be shown to be false
+since both sides use different constructors.</p>
+<p>For instance, consider the following proposition.</p>
+<pre data-lang="coq" style="background-color:#0f1419;color:#bfbab0;" class="language-coq "><code class="language-coq" data-lang="coq"><span style="color:#ff7733;">Example </span><span style="color:#ffb454;">one_not_zero </span><span style="color:#bfbab0cc;">: </span><span style="color:#f29668;">~ </span><span>(</span><span style="color:#f29718;">1 </span><span style="color:#f29668;">= </span><span style="color:#f29718;">0</span><span>).
+</span><span style="color:#ff7733;">Proof</span><span style="color:#bfbab0cc;">.
+</span><span>  </span><span style="color:#f07178;">unfold </span><span>not. </span><span style="font-style:italic;color:#5c6773;">(* Transforms [~ (1 = 0)] into [(1 = 0) -&gt; False] *)
+</span><span>  </span><span style="color:#f07178;">intros </span><span>h.   </span><span style="font-style:italic;color:#5c6773;">(* Introduces hypothesis [h: 1 = 0] *)
+</span><span>  </span><span style="color:#f07178;">discriminate </span><span>h. </span><span style="font-style:italic;color:#5c6773;">(* Concludes that hypothesis h cannot be obtained *)
+</span><span style="color:#ff7733;">Qed</span><span>.
+</span></code></pre>
+<p>We have defined <code>P -&gt; False</code>. If we revert the terms in that implication we have
+<code>P</code>. This fact is known in the literature
+as the principle of explosion or <em>ex falso quodlibet</em>. In Rocq this principle shows in some proofs
+where instead of proving the goal it may be convenient that with the assumed hypothesis we can derive
+a proof for false. This principle is accessed through the <code>exfalso</code> tactic.</p>
+<pre data-lang="coq" style="background-color:#0f1419;color:#bfbab0;" class="language-coq "><code class="language-coq" data-lang="coq"><span style="color:#ff7733;">Theorem </span><span style="color:#ffb454;">not_true_is_false&#39; </span><span style="color:#bfbab0cc;">: </span><span style="color:#ff7733;">forall </span><span style="color:#f29718;">b </span><span style="color:#bfbab0cc;">: </span><span style="color:#f07178;">bool</span><span style="color:#bfbab0cc;">,
+</span><span>  </span><span style="color:#f29668;">~ </span><span>(b </span><span style="color:#f29668;">= </span><span style="font-style:italic;color:#f29668;">true</span><span>) </span><span style="color:#ff3333;">→ </span><span>b </span><span style="color:#f29668;">= </span><span style="font-style:italic;color:#f29668;">false</span><span>.
+</span><span style="color:#ff7733;">Proof</span><span style="color:#bfbab0cc;">.
+</span><span>  </span><span style="color:#f07178;">intros </span><span>b not_b_true.
+</span><span>  </span><span style="color:#f07178;">destruct </span><span>b.
+</span><span>  </span><span style="color:#59c2ff;">- </span><span style="font-style:italic;color:#5c6773;">(* b = true *)
+</span><span>    </span><span style="color:#f07178;">unfold </span><span>not </span><span style="color:#ff7733;">in </span><span>not_b_true.
+</span><span>    </span><span style="color:#f07178;">exfalso</span><span>.
+</span><span>    </span><span style="color:#f07178;">apply </span><span>not_b_true.
+</span><span>    </span><span style="color:#f07178;">reflexivity</span><span>.
+</span><span>  </span><span style="color:#59c2ff;">- </span><span style="font-style:italic;color:#5c6773;">(* b = false *) 
+</span><span>    </span><span style="color:#f07178;">reflexivity</span><span>.
+</span><span style="color:#ff7733;">Qed</span><span>.
+</span></code></pre>
+<p>Besides negating a proposition, Rocq also allows us to use the usual logical connectives. And is expressed
+with the symbol <code>\/</code>, mimicking their shape's
+in mathematical notation: $\wedge$ and $\vee$.</p>
+<p>When dealing with <code>split</code> tactic to
+divide the goal into two, which we will have to prove separately. If the <code>/\</code> is instead
+in a hypothesis <code>destruct h</code> tactic, which would
+separate both sides of the conjunction in different hypothesis. Rocq will try to give appropriate names
+to the new hypothesis, but most of the time it is a better idea to give the names on your own. To do so,
+you can use <code>hr</code>
+are the names given to the left and right sides of the conjunction respectively.</p>
+<p>When dealing with <code>\/</code> in the goal, we need to decide which part of the proposition we would
+like to prove in order to prove the hypothesis. To choose the left side of the disjunction we use the
+appropriately named <code>right</code> tactic choosing the
+right side of the disjunction as expected. If the <code>\/</code> is instead in a hypothesis
+<code>destruct h</code> tactic, which will ask us to
+prove the same goal twice: once with the left side of the disjunction <code>h</code> and once with
+the right side of the disjunction <code>h</code>. In both of these options the sides of the
+disjunction would replace the <code>h</code> hypothesis, but it is also possible to rename them
+by employing the tactic as <code>hl</code> and
+<code>hr</code> are again the names of the left and right side of the disjunction respectively.</p>
+<p>Before moving on to the next topic, I wanted to point out a particularity of Rocq's mathematical
+foundations. Notice that when handling a goal of type $P \vee Q$ we need to know which between $P$ or $Q$
+holds before proceeding with the proof. This is due to Rocq's logic being constructive. In a
+non-constructive logic proving that a proposition cannot be false is equivalent to proving that that
+proposition is true. In a constructive logic, however, a proposition is only true if you show it to be
+true. While nuanced, this is a powerful distinction.</p>
+<p>Consider the following proposition:</p>
+<blockquote>
+<p>There exist irrational numbers $a$ and $b$ such that $a^b$ is rational.</p>
+</blockquote>
+<p>In classical logic, a proof of the previous would proceed like this. We assume we have already proven that
+$\sqrt{2}$ is irrational. Then consider whether $\sqrt{2}^{\sqrt{2}}$ is rational. If it is, we can conclude
+the proof with $a = b = \sqrt{2}$. Otherwise $\sqrt{2}^{\sqrt{2}}$ is irrational. We choose $a = \sqrt{2}^
+{\sqrt{2}}$ and $b = \sqrt{2}$. Then
+$$
+a^b = \left(\sqrt{2}^{\sqrt{2}}\right)^{\sqrt{2}} = \sqrt{2}^{\sqrt{2}\sqrt{2}} = \sqrt{2} ^ 2 = 2
+$$
+Since $2$ is rational this concludes the proof.</p>
+<p>Notice how we have concluded the proof without knowing the values of $a$ and $b$. This happened because we
+were able to assume the following:</p>
+<blockquote>
+<p>$\sqrt{2}^{\sqrt{2}}$ is rational ${\Large{\vee}} \sqrt{2}^{\sqrt{2}}$ is  irrational.</p>
+</blockquote>
+<p>A constructive logic has the advantage that, if something is proven within it, you are
+guaranteed to have values for what was proven. Nevertheless, sometimes proofs require of the
+<code>excluded_middle</code>
+as an Axiom in the module <code>Coq.Logic.ClassicalFacts</code>. An axiom is a proposition
+which Rocq accepts as true without proof, and can be declared with the <code>Axiom</code>
+command. However, it is dangerous to do so, one may introduce a proposition which would enable
+proving <code>true = false</code>. Fortunately, we can rely on Rocq's provided assumptions to
+not break the consistency of its logic.</p>
+<h2 id="the-curry-howard-correspondence"><a class="zola-anchor" href="#the-curry-howard-correspondence" aria-label="Anchor link for: the-curry-howard-correspondence">The Curry-Howard correspondence</a></h2>
+<p>In the field of programming languages and type theory, the Curry-Howard correspondence states that there
+exists an isomorphism between programs and proofs, and types and propositions. So far we have treated Rocq
+the programming language and Rocq the proof assistant as two different things, but in fact, they are the
+same. Whenever we wrote <code>Theorem</code>, we could have used
+<code>Definition</code> instead!</p>
+<pre data-lang="coq" style="background-color:#0f1419;color:#bfbab0;" class="language-coq "><code class="language-coq" data-lang="coq"><span style="color:#ff7733;">Definition </span><span style="color:#ffb454;">true_is_true&#39; </span><span style="color:#bfbab0cc;">: </span><span style="font-style:italic;color:#f29668;">true </span><span style="color:#f29668;">= </span><span style="font-style:italic;color:#f29668;">true</span><span>.
+</span><span style="color:#ff7733;">Proof</span><span style="color:#bfbab0cc;">.
+</span><span>  </span><span style="color:#f07178;">reflexivity</span><span>.
+</span><span style="color:#ff7733;">Qed</span><span>.
+</span></code></pre>
+<p>The type of <code>true_is_true</code> is in fact the proposition we are trying to prove, and its
+value is the proof built in proof mode. In fact, not even proof mode was necessary. We could have
+specified the ``proof object'' directly after the <code>:=</code> symbol. This is made apparent if we
+ask Rocq to print one of our prior proofs.</p>
+<pre data-lang="coq" style="background-color:#0f1419;color:#bfbab0;" class="language-coq "><code class="language-coq" data-lang="coq"><span style="color:#ff7733;">Print </span><span>has_zero. 
+</span></code></pre>
+<pre data-lang="coq" style="background-color:#0f1419;color:#bfbab0;" class="language-coq "><code class="language-coq" data-lang="coq"><span style="color:#ff3333;">has_zero</span><span> = 
+</span><span>ex_intro (fun n : nat =&gt; n = 0) 0 eq_refl
+</span><span>     : exists n : nat, n = 0
+</span></code></pre>
+<p>Here we see that we construct a proof value using the <code>ex_intro</code> constructor, with the
+following parameters:</p>
+<ul>
+<li><code>n = 0</code></li>
+<li>0 is the witness of the <code>n</code> for which the property is true</li>
+<li><code>reflexivity</code> tactic!</li>
+</ul>
+<p>The feature which allows us to use Rocq as a theorem prover is its type system. In fact, Rocq's type system
+is not like those of other general purpose language, since it allows the definition of dependent types. A
+dependent type is a type whose definition depends on a value. This allows us to make types such as
+<code>Vector.t nat 10</code>, of all lists of natural numbers of length 10,
+or more importantly, since propositions are types it allows us to refer to individual values in our
+propositions, instead of just their types.</p>
+<p>Dependent data types can be created with the <code>Record</code> command.</p>
+<pre data-lang="coq" style="background-color:#0f1419;color:#bfbab0;" class="language-coq "><code class="language-coq" data-lang="coq"><span style="color:#ff3333;">Record</span><span> dependent_example := {
+</span><span>  a: nat;
+</span><span>  proof_a_not_0: a &lt;&gt; 0
+</span><span>}.
+</span></code></pre>
+<p>The <code>dependent_example</code> type represents all pairs of naturals
+<code>a</code> and
+proofs that <code>a</code> is not 0. We can generalize this example to define the subset of
+elements of a type $A$ which fulfill some condition $P$, that is ${x \in A : P (x)}$. This type of record is defined in Rocq's standard
+library and it is called <code>sig</code>.</p>
+<pre data-lang="coq" style="background-color:#0f1419;color:#bfbab0;" class="language-coq "><code class="language-coq" data-lang="coq"><span style="color:#ff7733;">Print </span><span>sig.
+</span></code></pre>
+<pre data-lang="coq" style="background-color:#0f1419;color:#bfbab0;" class="language-coq "><code class="language-coq" data-lang="coq"><span style="color:#ff7733;">Inductive </span><span style="color:#ffb454;">sig </span><span>(</span><span style="color:#f29718;">A </span><span style="color:#bfbab0cc;">: </span><span style="font-style:italic;color:#39bae6;">Type</span><span>) (</span><span style="color:#f29718;">P </span><span style="color:#bfbab0cc;">: </span><span style="color:#ff7733;">A </span><span style="color:#f29668;">-&gt; </span><span style="font-style:italic;color:#39bae6;">Prop</span><span>) </span><span style="color:#bfbab0cc;">: </span><span style="font-style:italic;color:#39bae6;">Type </span><span style="color:#f29668;">:=
+</span><span>    </span><span style="color:#ffb454;">exist </span><span style="color:#bfbab0cc;">: </span><span style="color:#ff7733;">forall </span><span style="color:#f29718;">x </span><span style="color:#bfbab0cc;">: </span><span style="color:#ff7733;">A</span><span style="color:#bfbab0cc;">, </span><span style="color:#ff7733;">P x </span><span style="color:#f29668;">-&gt; </span><span>{</span><span style="color:#f29718;">x </span><span style="color:#bfbab0cc;">: </span><span style="color:#ff7733;">A </span><span style="color:#f29668;">| </span><span>P x}.
+</span><span>
+</span><span style="color:#ff3333;">Arguments</span><span> sig [A]%type_scope P%type_scope
+</span><span>Arguments exist [A]%type_scope P%function_scope x _
+</span></code></pre>
+<p><code>sig</code> is usually used through a special syntax also defined in the standard library
+where <code>sig A P</code>.</p>
+<p>The <code>forall</code> keyword behaves like function application, with the difference that it
+allows the return type to use the argument's value, that is, it allows the return type to depend on
+the  function's parameters. Otherwise, <code>forall n : nat, nat</code> is the same as
+<code>nat -&gt; nat</code>, as can be seen in the following example.</p>
+<pre data-lang="coq" style="background-color:#0f1419;color:#bfbab0;" class="language-coq "><code class="language-coq" data-lang="coq"><span style="color:#ff7733;">Definition </span><span style="color:#ffb454;">a </span><span style="color:#bfbab0cc;">: </span><span style="color:#ff7733;">forall </span><span style="color:#f29718;">n</span><span style="color:#bfbab0cc;">: </span><span style="color:#f07178;">nat</span><span style="color:#bfbab0cc;">, </span><span style="color:#f07178;">nat </span><span style="color:#f29668;">:= </span><span>add </span><span style="color:#f29718;">1</span><span>.
+</span><span style="color:#ff7733;">Check </span><span>a.
+</span></code></pre>
+<pre data-lang="coq" style="background-color:#0f1419;color:#bfbab0;" class="language-coq "><code class="language-coq" data-lang="coq"><span style="color:#ff3333;">a
+</span><span>     : nat -&gt; nat
+</span></code></pre>
+<p>The <code>False</code> is equivalent to our previous definition of
+<code>void</code>, an inductive type with no constructors, and
+<code>I</code>. Intuitively it
+makes sense, since there is not proof of falsehood, therefore it has no constructors, and you can always
+prove <code>True</code> without needing any extra information, hence the constructor without
+arguments.</p>
+<p>Dependent types also allow us to achieve something similar to parametric polymorphism. Consider the
+previously defined <code>bool_identity function</code>. This function is a less powerful version
+of the generic <code>identity</code> function which works for arguments of any type. These types
+of functions are defined in other functional programming languages through the use of parametric
+polymorphism, making both the input and output types generic. However, since in Rocq types are first
+class values we do not need parametric polymorphism to define such a function.</p>
+<pre data-lang="coq" style="background-color:#0f1419;color:#bfbab0;" class="language-coq "><code class="language-coq" data-lang="coq"><span style="color:#ff7733;">Definition </span><span style="color:#ffb454;">identity&#39; </span><span>(</span><span style="color:#f29718;">A</span><span style="color:#bfbab0cc;">: </span><span style="font-style:italic;color:#39bae6;">Type</span><span>)(</span><span style="color:#f29718;">b</span><span style="color:#bfbab0cc;">: </span><span style="color:#ff7733;">A</span><span>) </span><span style="color:#f29668;">:= </span><span>b. 
+</span><span style="color:#ff7733;">Compute </span><span>identity&#39; </span><span style="color:#f07178;">bool </span><span style="font-style:italic;color:#f29668;">true</span><span>.
+</span></code></pre>
+<p>This definition is possible since we are allowed to make the type of the second argument depend on the
+value of the first with dependent types. However, using this identity function is noticeably less
+ergonomic than its counterpart in other functional programming languages since we also need to
+explicitly specify the type of its argument. In other functional programming languages, this task is
+left to the type checker through the feature of type inference. Instead, Rocq introduces a more powerful
+feature: implicit arguments. An explicit argument is defined by surrounding it with curly brackets instead of parenthesis.</p>
+<pre data-lang="coq" style="background-color:#0f1419;color:#bfbab0;" class="language-coq "><code class="language-coq" data-lang="coq"><span style="color:#ff7733;">Definition </span><span style="color:#ffb454;">identity</span><span> {</span><span style="color:#f29718;">A</span><span style="color:#bfbab0cc;">: </span><span style="font-style:italic;color:#39bae6;">Type</span><span style="color:#ff3333;">}</span><span>(b</span><span style="color:#bfbab0cc;">: </span><span>A) </span><span style="color:#f29668;">:= </span><span>b. 
+</span><span style="color:#ff7733;">Compute </span><span>identity </span><span style="font-style:italic;color:#f29668;">true</span><span>.
+</span></code></pre>
+<p>Rocq will attempt to derive the value for implicit arguments automatically, using globally available
+information as well as its signature. You can also ask Rocq to infer the value of a parameter which was
+not marked as implicit by using the <code>_</code> identifier instead of its value.</p>
+<pre data-lang="coq" style="background-color:#0f1419;color:#bfbab0;" class="language-coq "><code class="language-coq" data-lang="coq"><span style="color:#ff7733;">Compute </span><span>identity&#39; </span><span style="color:#ff7733;">_ </span><span style="font-style:italic;color:#f29668;">true</span><span>.
+</span></code></pre>
+<p>To provide all arguments of a function explicitly, even if they were defined as implicit, you can
+refer to the function with a prepended <code>@</code>.</p>
+<pre data-lang="coq" style="background-color:#0f1419;color:#bfbab0;" class="language-coq "><code class="language-coq" data-lang="coq"><span style="color:#ff7733;">Compute </span><span style="color:#f29668;">@</span><span>identity </span><span style="color:#f07178;">bool </span><span style="font-style:italic;color:#f29668;">true</span><span>.
+</span></code></pre>
+<p>This is occasionally useful if Rocq is struggling to infer the implicit argument (Rocq's algorithm for type checking and type synthesis <a href="https://cs.stackexchange.com/q/147849">can be exponential</a> in time in the worst case).</p>
+<p>In other programming languages, many commonly used functions are made available in the form of a
+standard library. Rocq does the same thing, with its standard library perhaps containing more basic
+definitions than in most other functional programming languages since the booleans and integers are
+delegated to it. For example, Rocq's standard library defines the <code>list</code> data type and
+its constructors, and the usual operations over them such as <code>map</code>,
+<code>fold_right</code> or
+<code>existsb</code>. These are defined in the
+<code>Coq.Lists.List</code> module.</p>
+<pre data-lang="coq" style="background-color:#0f1419;color:#bfbab0;" class="language-coq "><code class="language-coq" data-lang="coq"><span style="color:#ff7733;">Print </span><span>existsb.
+</span></code></pre>
+<pre data-lang="coq" style="background-color:#0f1419;color:#bfbab0;" class="language-coq "><code class="language-coq" data-lang="coq"><span style="color:#ff3333;">existsb</span><span> = 
+</span><span>fun (A : Type) (f : A -&gt; bool) =&gt;
+</span><span>fix existsb (l : list A) : bool :=
+</span><span>  match l with
+</span><span>  | nil =&gt; false
+</span><span>  | a :: l0 =&gt; f a || existsb l0
+</span><span>  end
+</span><span>     : forall A : Type, (A -&gt; bool) -&gt; list A -&gt; bool
+</span></code></pre>
+<p>However, besides providing data types and operations Rocq also provides theorems which let us reason
+about these data types and operations. For example, in <code>Coq.Lists.List</code> the
+<code>existsb_exists</code> lemma is defined, which establishes the relationship between the
+<code>exists</code> quantifier.</p>
+<pre data-lang="coq" style="background-color:#0f1419;color:#bfbab0;" class="language-coq "><code class="language-coq" data-lang="coq"><span style="color:#ff7733;">Print </span><span>existsb.
+</span></code></pre>
+<pre data-lang="coq" style="background-color:#0f1419;color:#bfbab0;" class="language-coq "><code class="language-coq" data-lang="coq"><span style="color:#ff3333;">existsb_exists
+</span><span>     : forall (A : Type) (f : A -&gt; bool) (l : list A),
+</span><span>       existsb f l = true &lt;-&gt; (exists x : A, In x l /\ f x = true)
+</span></code></pre>
+<p>These lemmas are used extensively throughout this project, and they are also the reason why we try to
+define things in terms of functions in the standard library whenever possible.</p>
+
+        </section>
+    </article>
+</main>
+
+
+
+        
+
+    </div>
+</body>
+
+</html>
