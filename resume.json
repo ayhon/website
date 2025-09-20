@@ -22,7 +22,7 @@
       "location": "Paris, France",
       "area": "Computer Science",
       "startDate": "Sep 2024",
-      "studyType": "Master"
+      "studyType": "Parisian Master of Research"
     },
     {
       "institution": "Universidad Complutense de Madrid",
@@ -68,6 +68,18 @@
     }
   ],
   "work": [
+    {
+      "highlights": [
+        "Proof automation with Aeneas",
+        "Lean specification of SHA3",
+        "Verification of SHA3 Rust implementation"
+      ],
+      "company": "EPI Prosecco",
+      "location": "Inria Paris",
+      "position": "M1 Internship",
+      "startDate": "February 2025",
+      "endDate": "July 2025"
+    },
     {
       "company": "Bending Spoons",
       "location": "Remote",
@@ -137,7 +149,7 @@
     },
     {
       "highlights": [
-        ""
+        null
       ],
       "company": "2nd European Top Competition Talent Summit",
       "position": "Participant",
