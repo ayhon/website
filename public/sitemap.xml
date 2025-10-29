@@ -17,6 +17,10 @@
         <loc>https://f.leal.sh/posts/page/1/</loc>
     </url>
     <url>
+        <loc>https://f.leal.sh/posts/resources-i-quote/</loc>
+        <lastmod>2025-02-01</lastmod>
+    </url>
+    <url>
         <loc>https://f.leal.sh/posts/rocq-proof-assistant/</loc>
         <lastmod>2025-01-11</lastmod>
     </url>
@@ -37,9 +41,6 @@
         <loc>https://f.leal.sh/projects/octagonal-constraint-solver/</loc>
     </url>
     <url>
-        <loc>https://f.leal.sh/projects/resources-i-quote/</loc>
-    </url>
-    <url>
         <loc>https://f.leal.sh/projects/sha3-lean/</loc>
     </url>
     <url>
@@ -56,6 +57,9 @@
     </url>
     <url>
         <loc>https://f.leal.sh/tags/haskell/</loc>
+    </url>
+    <url>
+        <loc>https://f.leal.sh/tags/list/</loc>
     </url>
     <url>
         <loc>https://f.leal.sh/tags/overview/</loc>
