@@ -16,8 +16,6 @@ into Lean, and created a separate Lean package so that it could potentially be
 used in the future by other people. The code can be found in
 https://github.com/ayhon/sha3.lean
 
-
-
 [MPRI]: https://mpri-master.ens.fr
 [Prosecco]: https://team.inria.fr/prosecco/
 [SHA3 specification]: https://example.com
