@@ -136,9 +136,7 @@ Definition bool_identity (b: bool) : bool := b.
 ```
 
 To the right side of the `:=` symbol we can put any Rocq expression. Technically, the 
-language of expressions in Rocq is called Gallina
-% https://coq.inria.fr/doc/v8.9/refman/language/gallina-specification-language.html#:~:text=This%20chapter%20describes%20Gallina%2C%20the,%2C%20functions%2C%20predicates%20and%20sets.
-but people usually refer to it as just Rocq informally. Calling a function is an expression, and the syntax
+language of expressions in Rocq is called [Gallina](https://coq.inria.fr/doc/v8.9/refman/language/gallina-specification-language.html#:~:text=This%20chapter%20describes%20Gallina%2C%20the,%2C%20functions%2C%20predicates%20and%20sets), but people usually refer to it as just Rocq informally. Calling a function is an expression, and the syntax
 used is the same as when defining one. To illustrate this we introduce the `Compute`
 command, which prompts Rocq to evaluate an expression and show its result. 
 
