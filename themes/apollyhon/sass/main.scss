@@ -13,9 +13,9 @@
   --border-color: var(--border-color);
 
   /* Fonts */
-  --text-font: 'Atkinson Hyperlegible';
-  --header-font: 'Atkinson Hyperlegible', 'Space Grotesk', 'Helvetica', sans-serif;
-  --code-font: 'Jetbrains Mono';
+  --text-font: 'Inter', system-ui, ui-sans-serif;
+  --header-font: 'Inter', system-ui, ui-sans-serif;
+  --code-font: 'Maple Mono', monospace;
 }
 
 html {
