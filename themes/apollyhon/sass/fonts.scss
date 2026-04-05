@@ -64,3 +64,31 @@
   src: url('fonts/AtkinsonHyperlegible/AtkinsonHyperlegible-BoldItalic.ttf'), local('ttf');
   font-display: swap;
 }
+
+// Inter
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  src: url('fonts/Inter/Inter-VariableFont_opsz,wght.ttf'), local('ttf');
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-style: italic;
+  src: url('fonts/Inter/Inter-Italic-VariableFont_opsz,wght.ttf'), local('ttf');
+}
+
+// Maple Mono
+@font-face {
+  font-family: 'Maple Mono';
+  font-style: normal;
+  src: url('fonts/MapleMono/MapleMono[wght].ttf'), local('ttf');
+  font-feature-settings: 'calt';
+}
+
+@font-face {
+  font-family: 'Maple Mono';
+  font-style: italic;
+  src: url('fonts/MapleMono/MapleMono-Italic[wght].ttf'), local('ttf');
+  font-feature-settings: 'calt';
+}
