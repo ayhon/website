@@ -17,7 +17,7 @@ use_cdn = false
 favicon = "/icon/favicon.png"
 theme = "toggle"              # light, dark, auto, toggle
 comment = false
-fancy_code = true
+fancy_code = false
 dynamic_note = true           # a note that can be toggled
 mathjax = true
 mathjax_dollar_inline_enable = true
@@ -40,10 +40,10 @@ custom_css = []
 [extra.analytics]
 enabled = false
 
-[extra.analytics.goatcounter]
-user = "your_user"
-host = "example.com" # default= goatcounter.com
+# [extra.analytics.goatcounter]
+# user = "your_user"
+# host = "example.com" # default= goatcounter.com
 
-[extra.analytics.umami]
-website_id = "43929cd1-1e83...."
-host_url = "https://stats.mywebsite.com" # default: https://analytics.eu.umami.is
+# [extra.analytics.umami]
+# website_id = "43929cd1-1e83...."
+# host_url = "https://stats.mywebsite.com" # default: https://analytics.eu.umami.is
