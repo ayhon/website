@@ -1,7 +1,7 @@
 +++
 title = "Verified SHA3 in Rust"
-description = "A verified implementation of the SHA3 hash family of functions in Rust. Verification was done in Lean."
-weight = 1
+description = "A verified implementation of the SHA3 hash family of functions in Rust, using the Aeneas framework"
+date = "2025-07-31"
 
 link_to = "https://github.com/ayhon/sha3.rs"
 +++

@@ -2,7 +2,7 @@
 title = "Movie list"
 description = "A list of watched / yet-to-be-watched movies."
 weight = 1
-draft = false
+draft = true
 +++
 
 This is a list of movies I want to watch at some point. It ranges from classics in 
@@ -41,7 +41,7 @@ cinema to recommendations certain friends gave me at some point in time.
  - [ ] [The good the bag and the ugly](https://en.wikipedia.org/wiki/The_Good,_the_Bad_and_the_Ugly)
  - [x] [Snatch](https://en.wikipedia.org/wiki/Snatch_(film))
  - [ ] [Space balls](https://en.wikipedia.org/wiki/Spaceballs)
- - [ ] [Airplane!](https://en.wikipedia.org/wiki/Airplane!)
+ - [X] [Airplane!](https://en.wikipedia.org/wiki/Airplane!)
  - [X] [The princess bride](https://en.wikipedia.org/wiki/The_Princess_Bride_(film))
  - [X] [No country for old men](https://en.wikipedia.org/wiki/No_Country_for_Old_Men)
  - [x] [A fish called Wanda](https://en.wikipedia.org/wiki/A_Fish_Called_Wanda)

@@ -1,7 +1,7 @@
 +++
 title = "SHA3 Lean specification"
 description = "Translated specification of the SHA3 hash family of functions into Lean."
-weight = 1
+date = "2025-05-31"
 
 link_to = "https://github.com/ayhon/sha3.lean"
 +++

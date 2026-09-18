@@ -2,6 +2,7 @@
 title = "Functors and applicative functors in haskell"
 date = 2021-08-21
 description = "A small exploration of functors and applicative functors in haskell."
+draft = true
 
 [taxonomies]
 tags = ["haskell", "functors"]

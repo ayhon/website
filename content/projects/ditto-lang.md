@@ -1,7 +1,7 @@
 +++
 title = "Ditto"
 description = "A small programming language which compiles to WASM."
-weight = 1
+date = "2023-05-31"
 
 [extra]
 link_to = "https://github.com/ayhon/practica-pl"
