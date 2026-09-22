@@ -25,7 +25,7 @@ During my second year of my masters, I had an interenship in ETH's [Programming 
 under the supervision of [Ralf Jung] and [Max Vistrup], where I worked on the [Iris-Lean] project by
 porting the programming language interface and developing [Wander], a Lean native Iris automation tactic.
 
-For the end of 2026, I will collaborate with [Jonathan Protzenko]'s team as part of the [Google EMEA] program,
+For the end of 2026, I will collaborate with [Jonathan Protzenko]'s team as part of the [Google Student Researcher Program],
 where I will contribute to existing projects ([Kraken], [Aeneas]) as a Lean metaprogrammer.
 
 
@@ -44,6 +44,6 @@ where I will contribute to existing projects ([Kraken], [Aeneas]) as a Lean meta
 [Wander]: https://github.com/ayhon/wander
 
 [Jonathan Protzenko]: https://jonathan.protzenko.fr/
-[Google EMEA]: https://www.google.com/about/careers/applications/buildyourfuture/programs/emea-lsi/
+[Google Student Researcher Program]: https://research.google/programs-and-events/student-engagement/
 [Kraken]: https://github.com/AeneasVerif/kraken
 
