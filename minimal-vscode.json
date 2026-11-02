@@ -1,0 +1,21 @@
+{
+    "chat.agentsControl.enabled": "hidden",
+    "editor.minimap.renderCharacters": false,
+    "window.customTitleBarVisibility": "never",
+    "window.titleBarStyle": "custom",
+    "window.controlsStyle": "hidden", // per https://code.visualstudio.com/updates/v1_99#_new-setting-for-window-controls-linux-windows (doesn't seem to work currently)
+    "workbench.editor.editorActionsLocation": "hidden",
+    "workbench.editor.showTabs": "none", // Use `none` to disable this
+    "window.commandCenter": false,
+    "window.menuBarVisibility": "hidden",
+    // "editor.lineNumbers": "off", // Ended up needing these back
+    "editor.glyphMargin": false,
+    "editor.minimap.enabled": false,
+    "editor.scrollbar.horizontal": "hidden",
+    "editor.scrollbar.vertical": "hidden",
+    "editor.stickyScroll.enabled": false,
+    "workbench.layoutControl.enabled": false,
+    "workbench.statusBar.visible": false,
+    "workbench.activityBar.location": "hidden",
+    "terminal.integrated.suggest.enabled": false,
+}
